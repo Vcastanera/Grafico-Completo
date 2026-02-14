@@ -6,7 +6,6 @@
     background: #191919;
     overflow-x: hidden;
   }
-</style>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +21,7 @@
 
   #tv_chart {
     width: 100vw;
-    height: 70vh;
+    height: 90vh;
   }
 </style>
 </head>
@@ -37,31 +36,43 @@ function loadChart() {
   document.getElementById("tv_chart").innerHTML = "";
 
   new TradingView.widget({
-    "container_id": "tv_chart",
-    "symbol": "INDEX:BTCUSD",
-    "interval": "D",
-    "theme": "dark",
-    "timezone": "Etc/UTC",
-    "style": "1",
+    container_id: "tv_chart",
 
-    /* 🔥 LIMPIO */
-    "hide_top_toolbar": true,
-    "hide_side_toolbar": true,
-    "hide_legend": true,
-    "hide_volume": true,
-    "withdateranges": false,
-    "allow_symbol_change": false,
+    /* 🔁 CAMBIO DE ACTIVO */
+    allow_symbol_change: true,
 
-    /* 🎨 estética */
-    "backgroundColor": "#0F0F0F",
-    "gridColor": "rgba(255,255,255,0.04)",
+    /* CONFIG ORIGINAL */
+    calendar: true,
+    details: false,
+    hide_side_toolbar: false,
+    hide_top_toolbar: false,
+    hide_legend: false,
+    hide_volume: false,
+    hotlist: false,
+    interval: "D",
+    locale: "es",
+    save_image: true,
+    style: "1",
+    symbol: "INDEX:BTCUSD",
+    theme: "dark",
+    timezone: "Etc/UTC",
+    backgroundColor: "#0F0F0F",
+    gridColor: "rgba(242,242,242,0.06)",
+    withdateranges: true,
+    compareSymbols: [],
 
-    "autosize": true
+    studies: [
+      "STD;Divergence%1Indicator",
+      "STD;MA%1Cross"
+    ],
+
+    autosize: true
   });
 }
 
 window.addEventListener("load", loadChart);
 
+/* 🔥 CLAVE: evitar pantalla blanca en Notion */
 document.addEventListener("visibilitychange", function() {
   if (!document.hidden) {
     setTimeout(loadChart, 300);
